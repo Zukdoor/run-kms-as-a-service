@@ -20,6 +20,7 @@ fi
 PID_FILE=/var/run/kurento-media-server.pid
 DAEMON_CMD=/usr/local/bin/kurento-media-server
 START_DAEMON=false
+DAEMON_OPTS="--modules-path=/kms-omni-build/build-Debug --gst-plugin-path=/kms-omni-build/build-Debug"
 
 # Include stun defaults if available
 if [ -f /etc/default/kurento-media-server ] ; then
@@ -68,7 +69,7 @@ start_kurento () {
     if [ $? != 0 ]; then
         chown $DAEMON_USER $DAEMON_LOG || { log_failure_msg "Unable to access $DAEMON_LOG"; exit 1; }
     fi
-   /sbin/start-stop-daemon --start --exec $DAEMON_CMD --pidfile "$PID_FILE" \
+   /sbin/start-stop-daemon --start --exec $DAEMON_CMD -- $DAEMON_OPTS --pidfile "$PID_FILE" \
         --chuid $DAEMON_USER --background --no-close --make-pidfile 1>>"$DAEMON_LOG/media-server_error.log" 2>&1
     if [ $? != 0 ]; then
         log_failure_msg "Kurento Media Server already started"
