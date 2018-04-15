@@ -18,7 +18,7 @@ fi
 
 # Variables
 PID_FILE=/var/run/kurento-media-server.pid
-DAEMON_CMD=/usr/bin/kurento-media-server
+DAEMON_CMD=/usr/local/bin/kurento-media-server
 START_DAEMON=false
 
 # Include stun defaults if available
