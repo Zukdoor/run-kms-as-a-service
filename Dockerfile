@@ -83,7 +83,7 @@ RUN apt-get install -y build-essential \
   openssl 
 
 RUN rm ffmpeg-3.1.tar.gz \
-  && rm nginx-1.13.6.tar.gz \
+  && rm nginx-1.13.6.tar.gz
 
 EXPOSE 8888
 
