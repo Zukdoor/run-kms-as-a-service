@@ -1,0 +1,40 @@
+# Defaults for kurento initscript
+# sourced by /etc/init.d/kurento-media-server
+# installed at /etc/default/kurento-media-server by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+#commment the next line to not allow the init.d script to start kurento server
+START_DAEMON=true
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS=""
+
+unset GST_PLUGIN_PATH
+
+#enable core dump
+ulimit -c unlimited
+#unlimit open files
+ulimit -n $((($(cat /proc/sys/fs/file-max) * 50) / 100 ))
+
+# Logging level
+# - See https://github.com/Kurento/doc-kurento/blob/master/static/kms_development_guide.md#logging-levels-and-categories
+# - See https://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-running.html
+export GST_DEBUG="3,Kurento*:4,kms*:4"
+
+# ICE debug logging: uncomment to enable in KMS and in the 3rd-party library 'libnice'
+# - Note: This can get very verbose, log size will explode in the long term
+#export GST_DEBUG="$GST_DEBUG,kmsiceniceagent:5,kmswebrtcsession:5,webrtcendpoint:4"
+#export G_MESSAGES_DEBUG="libnice,libnice-stun"
+#export NICE_DEBUG="$G_MESSAGES_DEBUG"
+
+# whom the daemons should run as
+DAEMON_USER=kurento
+
+DAEMON_LOG=/var/log/kurento-media-server
+
+export KURENTO_LOGS_PATH=$DAEMON_LOG
+#export KURENTO_LOG_FILE_SIZE=300
+#export KURENTO_NUMBER_LOG_FILES=20
