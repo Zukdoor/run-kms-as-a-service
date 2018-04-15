@@ -31,7 +31,7 @@ export GST_DEBUG="3,Kurento*:4,kms*:4"
 #export NICE_DEBUG="$G_MESSAGES_DEBUG"
 
 # whom the daemons should run as
-DAEMON_USER=kurento
+DAEMON_USER=root
 
 DAEMON_LOG=/var/log/kurento-media-server
 
